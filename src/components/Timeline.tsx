@@ -786,6 +786,7 @@ export function Timeline() {
               <span>видео</span>
             </div>
           ))}
+          {!!rows.length && <div className="track-header-spacer" key="spacer-keys" />}
           {rows.map((row) => (
             <div className="track-label key-label" key={row.id}>
               <strong>{row.label}</strong>
@@ -793,10 +794,13 @@ export function Timeline() {
             </div>
           ))}
           {mode === "scene" && editor.selectedActorId && (
-            <div className="track-label motion-label">
-              <strong>Анимация</strong>
-              <span>{paintMotion ? (timelineGestureLabels[paintMotion] ?? paintMotion) : "участок"}</span>
-            </div>
+            <>
+              <div className="track-header-spacer" key="spacer-motion" />
+              <div className="track-label motion-label paint">
+                <strong>Анимация</strong>
+                <span>{paintMotion ? (timelineGestureLabels[paintMotion] ?? paintMotion) : "участок"}</span>
+              </div>
+            </>
           )}
           {mode === "scene" && timeline?.motionSegments
             .filter((segment) => !editor.selectedActorId || segment.actorId === editor.selectedActorId)
@@ -806,6 +810,7 @@ export function Timeline() {
               <span>{editor.currentScene.actors.find((actor) => actor.id === segment.actorId)?.name ?? "жест"}</span>
             </div>
           ))}
+          {mode === "scene" && !!audioTracks.length && <div className="track-header-spacer" key="spacer-audio" />}
           {mode === "scene" && audioTracks.map((track, index) => (
             <div className="track-label audio-label" key={`label-${track.id}`}>
               <strong>A{index + 1} {track.muted ? "🔇 " : ""}{track.name}</strong>
@@ -826,10 +831,13 @@ export function Timeline() {
             </div>
           ))}
           {mode === "scene" && (
-            <div className="track-label dialogue-label">
-              <strong>Реплики</strong>
-              <span>{dialogues.length}</span>
-            </div>
+            <>
+              <div className="track-header-spacer" key="spacer-dialogue" />
+              <div className="track-label dialogue-label">
+                <strong>Реплики</strong>
+                <span>{dialogues.length}</span>
+              </div>
+            </>
           )}
         </div>
         <div className="track-lanes">
@@ -894,8 +902,9 @@ export function Timeline() {
                 )))}
             </div>
           ))}
+          {!!rows.length && <div className="track-header-spacer" key="lane-spacer-keys" />}
           {rows.map((row) => (
-            <div className="track-lane" key={row.id}>
+            <div className="track-lane key-lane" key={row.id}>
               {row.keys.map((key: NumericKeyframe) => (
                 <button
                   key={key.id}
@@ -909,6 +918,9 @@ export function Timeline() {
               ))}
             </div>
           ))}
+          {mode === "scene" && editor.selectedActorId && (
+            <div className="track-header-spacer" key="lane-spacer-motion" />
+          )}
           {mode === "scene" && editor.selectedActorId && (
             <div
               className={`track-lane motion-lane paint-lane${paintMotion ? " armed" : ""}`}
@@ -1000,6 +1012,7 @@ export function Timeline() {
               </button>
             </div>
           ))}
+          {mode === "scene" && !!audioTracks.length && <div className="track-header-spacer" key="lane-spacer-audio" />}
           {mode === "scene" && audioTracks.map((track) => {
             const start = mediaStart("audio", track.id, track.startTime);
             const hasWave = amplitudeEnvelopeCache.has(track.assetId);
@@ -1040,6 +1053,7 @@ export function Timeline() {
               </div>
             );
           })}
+          {mode === "scene" && <div className="track-header-spacer" key="lane-spacer-dialogue" />}
           {mode === "scene" && (
             <div className="track-lane dialogue-lane">
               {dialogues.map((line) => {
