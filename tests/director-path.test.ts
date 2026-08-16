@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  alignSeededFootPath,
   bakeDirectorPath,
   buildGestureAction,
   buildPathActions,
@@ -35,6 +36,28 @@ describe("directorPath", () => {
     expect(simplified[simplified.length - 1]!.x).toBe(points[points.length - 1]!.x);
   });
 
+  it("converts a seeded root-to-feet stroke into actor-root coordinates", () => {
+    const aligned = alignSeededFootPath([
+      { x: 300, y: 320 }, // current actor root injected by CanvasStage/EditorContext
+      { x: 305, y: 620 }, // user starts drawing under the feet
+      { x: 500, y: 640 },
+      { x: 700, y: 600 },
+    ]);
+    expect(aligned[0]).toEqual({ x: 300, y: 320 });
+    expect(aligned[1]).toEqual({ x: 305, y: 320 });
+    expect(aligned[2]).toEqual({ x: 500, y: 340 });
+    expect(aligned[3]).toEqual({ x: 700, y: 300 });
+  });
+
+  it("does not reinterpret an ordinary freehand path as a feet anchor", () => {
+    const original = [
+      { x: 100, y: 400 },
+      { x: 140, y: 420 },
+      { x: 220, y: 450 },
+    ];
+    expect(alignSeededFootPath(original)).toEqual(original);
+  });
+
   it("bakeDirectorPath yields sparse keys following drawn Y", () => {
     const dense = Array.from({ length: 80 }, (_, index) => ({
       x: 100 + index * 8,
@@ -48,6 +71,19 @@ describe("directorPath", () => {
     // Must not flatten to a single ground Y — follow the stroke.
     const ys = new Set(baked!.keys.map((key) => Math.round(key.y)));
     expect(ys.size).toBeGreaterThan(1);
+  });
+
+  it("baked seeded feet path starts from current actor root without vertical jump", () => {
+    const baked = bakeDirectorPath([
+      { x: 250, y: 300 },
+      { x: 252, y: 610 },
+      { x: 500, y: 610 },
+      { x: 760, y: 610 },
+    ], { mode: "Walk", startTime: 0 });
+    expect(baked).not.toBeNull();
+    expect(baked!.keys[0]!.y).toBe(300);
+    expect(baked!.keys[baked!.keys.length - 1]!.y).toBe(300);
+    expect(baked!.keys.length).toBeLessThanOrEqual(18);
   });
 
   it("locks nearly-horizontal paths to ground Y when requested", () => {

@@ -14,6 +14,8 @@ export const PATH_MIN_SEGMENT_DURATION = 0.12;
 export const PATH_RDP_EPSILON = 16;
 /** Hard cap so the timeline never fills with diamonds. */
 export const PATH_MAX_KEYS = 18;
+/** A seeded root→feet jump is normally much larger than freehand sampling. */
+export const PATH_FOOT_ANCHOR_MIN_OFFSET = 48;
 
 export const DIRECTOR_GESTURES: ActionType[] = [
   "Idle",
@@ -95,6 +97,34 @@ export function decimatePolyline(points: Vec2[], maxPoints: number): Vec2[] {
 }
 
 /**
+ * CanvasStage seeds a freehand path with the current actor root when the user starts
+ * drawing at the character's feet. That first root→stroke segment contains the exact
+ * vertical root-to-feet offset. Convert the following stroke from feet coordinates to
+ * actor-root coordinates while preserving every bend the user drew.
+ *
+ * The correction is deliberately conservative: it is applied only when the first jump
+ * is large and predominantly vertical, so ordinary freehand paths are untouched.
+ */
+export function alignSeededFootPath(points: Vec2[], minOffset = PATH_FOOT_ANCHOR_MIN_OFFSET): Vec2[] {
+  if (points.length < 3) return points.map((point) => ({ ...point }));
+  const root = points[0]!;
+  const strokeStart = points[1]!;
+  const dx = strokeStart.x - root.x;
+  const dy = strokeStart.y - root.y;
+  if (Math.abs(dy) < minOffset || Math.abs(dy) <= Math.abs(dx) * 1.25) {
+    return points.map((point) => ({ ...point }));
+  }
+
+  // Keep the actor at its exact current root on frame 0. Every user-drawn point keeps
+  // its X and its relative Y shape, but is shifted by the detected root→feet offset.
+  const result: Vec2[] = [{ ...root }];
+  for (let index = 1; index < points.length; index += 1) {
+    result.push({ x: points[index]!.x, y: points[index]!.y - dy });
+  }
+  return result;
+}
+
+/**
  * Optional: flatten nearly-horizontal paths to a ground line (AI walks).
  * Freehand «Путь» should NOT use this — it makes the actor miss the yellow stroke.
  */
@@ -147,7 +177,10 @@ export function bakeDirectorPath(
   options: { mode: DirectorLocomotion; startTime: number; maxKeys?: number },
 ): BakedDirectorPath | null {
   const maxKeys = options.maxKeys ?? PATH_MAX_KEYS;
-  let points = simplifyPolyline(rawPoints, PATH_MIN_POINT_DISTANCE);
+  // Correct root-vs-feet coordinates before simplification. This is what makes the
+  // visible feet follow the line the user actually drew instead of the actor root.
+  let points = alignSeededFootPath(rawPoints);
+  points = simplifyPolyline(points, PATH_MIN_POINT_DISTANCE);
   points = rdpSimplify(points, PATH_RDP_EPSILON);
   points = decimatePolyline(points, maxKeys);
   if (points.length < 2) return null;
