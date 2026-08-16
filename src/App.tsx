@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Toolbar } from "./components/Toolbar";
 import { LeftSidebar } from "./components/LeftSidebar";
 import { CanvasStage } from "./components/CanvasStage";
@@ -6,6 +6,7 @@ import { DirectorBar } from "./components/DirectorBar";
 import { SceneAssemblyBar } from "./components/SceneAssemblyBar";
 import { Timeline } from "./components/Timeline";
 import { SceneComposer } from "./components/SceneComposer";
+import { TimelinePopout, openTimelineWindow } from "./components/TimelinePopout";
 import { RightSidebar } from "./components/RightSidebar";
 import { ExportPanel } from "./components/ExportPanel";
 import { CharacterCreatorPanel } from "./components/CharacterCreatorPanel";
@@ -37,6 +38,7 @@ function EditorShell() {
   const timelineLayout = useTimelineHeight();
   const smokeDone = useRef(false);
   const [advancedTimeline, setAdvancedTimeline] = useState(false);
+  const [timelinePopup, setTimelinePopup] = useState<Window | null>(null);
   /** Default collapsed so the scene itself stays large. */
   const [chromeCollapsed, setChromeCollapsed] = useState(() => {
     try {
@@ -47,6 +49,24 @@ function EditorShell() {
       return true;
     }
   });
+
+  const closeTimelinePopout = useCallback(() => setTimelinePopup(null), []);
+  const openAdvancedTimeline = useCallback(() => {
+    if (timelinePopup && !timelinePopup.closed) {
+      timelinePopup.focus();
+      return;
+    }
+    const popup = openTimelineWindow();
+    if (!popup) {
+      setAdvancedTimeline(true);
+      editor.setStatus("Отдельное окно заблокировано — Timeline открыт снизу");
+      return;
+    }
+    setAdvancedTimeline(false);
+    setTimelinePopup(popup);
+    popup.focus();
+    editor.setStatus("Расширенный Timeline открыт отдельным окном — его можно растянуть или развернуть");
+  }, [editor, timelinePopup]);
 
   useEffect(() => {
     try {
@@ -197,7 +217,7 @@ function EditorShell() {
           <div className={`stage-chrome${chromeCollapsed ? " collapsed" : ""}`}>
             <div className="stage-chrome-toggle">
               <strong>Сцены · Режиссёр</strong>
-              <small>{advancedTimeline ? "Расширенный Timeline открыт снизу" : "Простой редактор сцены открыт снизу"}</small>
+              <small>{timelinePopup && !timelinePopup.closed ? "Timeline открыт отдельным окном" : advancedTimeline ? "Расширенный Timeline открыт снизу" : "Простой редактор сцены открыт снизу"}</small>
               <button
                 type="button"
                 title={chromeCollapsed ? "Показать сцены и режиссёра" : "Свернуть — больше места для сцены"}
@@ -226,11 +246,12 @@ function EditorShell() {
           <div style={{ height: "var(--timeline-height)", minHeight: 0, display: "grid", gridTemplateRows: "auto minmax(0,1fr)" }}>
             <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, padding: "6px 10px", background: "#15191c", borderBottom: "1px solid #343a3f" }}>
               <button type="button" onClick={() => setAdvancedTimeline(false)} style={{ border: "1px solid #d0a735", background: "#3a3119", color: "#fff2c2", borderRadius: 7, padding: "6px 10px", cursor: "pointer" }}>← Вернуться в простой редактор сцены</button>
+              <button type="button" onClick={openAdvancedTimeline} style={{ border: "1px solid #5b6ea8", background: "#202a43", color: "#dce6ff", borderRadius: 7, padding: "6px 10px", cursor: "pointer" }}>⧉ В отдельное окно</button>
             </div>
             <div style={{ minHeight: 0, overflow: "hidden" }}><Timeline /></div>
           </div>
         ) : (
-          <SceneComposer onAdvancedTimeline={() => setAdvancedTimeline(true)} />
+          <SceneComposer onAdvancedTimeline={openAdvancedTimeline} />
         )}
         <footer
           className={`status-bar ${editor.error ? "error" : ""}`}
@@ -246,6 +267,11 @@ function EditorShell() {
           </span>
         </footer>
       </div>
+      {timelinePopup && !timelinePopup.closed ? (
+        <TimelinePopout popup={timelinePopup} onClosed={closeTimelinePopout}>
+          <Timeline />
+        </TimelinePopout>
+      ) : null}
       <ExportPanel />
       <PartForgePanel />
       <MontagePanel />
