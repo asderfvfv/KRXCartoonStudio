@@ -1729,7 +1729,7 @@ button.linkish {
   outline-offset: -2px;
   background: #1e3438;
 }
-.track-label.motion-label { min-height: 36px; height: 36px; }
+.track-label.motion-label.paint { min-height: 36px; height: 36px; }
 .motion-block {
   position: absolute;
   top: 5px;

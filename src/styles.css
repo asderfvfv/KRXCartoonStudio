@@ -550,7 +550,7 @@ select {
 .keyframe-add button { font-size: var(--font-size-sm); white-space: nowrap; }
 .montage-scrub-markers {
   position: absolute;
-  left: 190px;
+  left: 180px;
   right: 12px;
   top: 2px;
   height: 14px;
@@ -696,6 +696,15 @@ select {
   z-index: 6;
 }
 .keyframe:hover, .keyframe.selected { color: #fff0a8; background: transparent; }
+.track-label.key-label {
+  border-left: 3px solid #7a6fd6;
+  background: rgba(122, 111, 214, 0.08);
+}
+.track-label.key-label span { color: #a79bef; }
+.track-lane.key-lane {
+  background-color: rgba(122, 111, 214, 0.05);
+}
+.track-header-spacer + .track-header-spacer { display: none; }
 .empty-tracks { grid-column: 1 / 3; }
 .keyframe-editor {
   display: flex;
