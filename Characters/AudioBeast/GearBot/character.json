@@ -1,0 +1,315 @@
+{
+  "version": 1,
+  "id": "character-gearbot",
+  "name": "GearBot",
+  "assets": [
+    {
+      "id": "asset-body",
+      "name": "body",
+      "path": "Assets/body.png",
+      "mediaType": "image/png",
+      "width": 419,
+      "height": 413
+    },
+    {
+      "id": "asset-eye",
+      "name": "eye",
+      "path": "Assets/eye.png",
+      "mediaType": "image/png",
+      "width": 285,
+      "height": 277
+    },
+    {
+      "id": "asset-mouth",
+      "name": "mouth",
+      "path": "Assets/mouth.png",
+      "mediaType": "image/png",
+      "width": 292,
+      "height": 163
+    },
+    {
+      "id": "asset-arm",
+      "name": "arm",
+      "path": "Assets/arm.png",
+      "mediaType": "image/png",
+      "width": 317,
+      "height": 339
+    },
+    {
+      "id": "asset-leg",
+      "name": "leg",
+      "path": "Assets/leg.png",
+      "mediaType": "image/png",
+      "width": 232,
+      "height": 295
+    }
+  ],
+  "parts": [
+    {
+      "id": "body",
+      "name": "Body",
+      "assetId": "asset-body",
+      "parentId": null,
+      "zIndex": 10,
+      "transform": {
+        "x": 142,
+        "y": 140,
+        "rotation": 0,
+        "scaleX": 0.6779661016949152,
+        "scaleY": 0.6779661016949152
+      },
+      "pivot": {
+        "x": 210,
+        "y": 207
+      },
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "semanticRole": "Body"
+    },
+    {
+      "id": "head",
+      "name": "Head",
+      "assetId": "asset-body",
+      "parentId": "body",
+      "zIndex": 11,
+      "transform": {
+        "x": 142,
+        "y": 49,
+        "rotation": 0,
+        "scaleX": 0.01,
+        "scaleY": 0.01
+      },
+      "pivot": {
+        "x": 1,
+        "y": 1
+      },
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "visible": false,
+      "locked": false,
+      "opacity": 0,
+      "semanticRole": "Head"
+    },
+    {
+      "id": "eye-left",
+      "name": "EyeLeft",
+      "assetId": "asset-eye",
+      "parentId": "body",
+      "zIndex": 22,
+      "transform": {
+        "x": 91,
+        "y": 106,
+        "rotation": 0,
+        "scaleX": 0.23859649122807017,
+        "scaleY": 0.23826714801444043
+      },
+      "pivot": {
+        "x": 143,
+        "y": 139
+      },
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "semanticRole": "EyeLeft"
+    },
+    {
+      "id": "eye-right",
+      "name": "EyeRight",
+      "assetId": "asset-eye",
+      "parentId": "body",
+      "zIndex": 22,
+      "transform": {
+        "x": 193,
+        "y": 106,
+        "rotation": 0,
+        "scaleX": 0.23859649122807017,
+        "scaleY": 0.23826714801444043
+      },
+      "pivot": {
+        "x": 143,
+        "y": 139
+      },
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "semanticRole": "EyeRight"
+    },
+    {
+      "id": "mouth",
+      "name": "Mouth",
+      "assetId": "asset-mouth",
+      "parentId": "body",
+      "zIndex": 23,
+      "transform": {
+        "x": 142,
+        "y": 162,
+        "rotation": 0,
+        "scaleX": 0.3732876712328767,
+        "scaleY": 0.37423312883435583
+      },
+      "pivot": {
+        "x": 146,
+        "y": 82
+      },
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "semanticRole": "Mouth"
+    },
+    {
+      "id": "arm-left",
+      "name": "ArmLeft",
+      "assetId": "asset-arm",
+      "parentId": "body",
+      "zIndex": 8,
+      "transform": {
+        "x": 23,
+        "y": 140,
+        "rotation": -8,
+        "scaleX": 0.28391167192429023,
+        "scaleY": 0.2861356932153392
+      },
+      "pivot": {
+        "x": 174,
+        "y": 51
+      },
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "semanticRole": "ArmLeft"
+    },
+    {
+      "id": "arm-right",
+      "name": "ArmRight",
+      "assetId": "asset-arm",
+      "parentId": "body",
+      "zIndex": 12,
+      "transform": {
+        "x": 261,
+        "y": 140,
+        "rotation": 8,
+        "scaleX": -0.28391167192429023,
+        "scaleY": 0.2861356932153392
+      },
+      "pivot": {
+        "x": 174,
+        "y": 51
+      },
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "semanticRole": "ArmRight"
+    },
+    {
+      "id": "leg-left",
+      "name": "LegLeft",
+      "assetId": "asset-leg",
+      "parentId": "body",
+      "zIndex": 7,
+      "transform": {
+        "x": 97,
+        "y": 258,
+        "rotation": 0,
+        "scaleX": 0.34051724137931033,
+        "scaleY": 0.3389830508474576
+      },
+      "pivot": {
+        "x": 116,
+        "y": 44
+      },
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "semanticRole": "LegLeft"
+    },
+    {
+      "id": "leg-right",
+      "name": "LegRight",
+      "assetId": "asset-leg",
+      "parentId": "body",
+      "zIndex": 7,
+      "transform": {
+        "x": 187,
+        "y": 258,
+        "rotation": 0,
+        "scaleX": -0.34051724137931033,
+        "scaleY": 0.3389830508474576
+      },
+      "pivot": {
+        "x": 116,
+        "y": 44
+      },
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "semanticRole": "LegRight"
+    }
+  ],
+  "sockets": [
+    {
+      "id": "socket-mouth",
+      "name": "Mouth",
+      "type": "Mouth",
+      "partId": "mouth",
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "socket-hand-left",
+      "name": "Left Hand",
+      "type": "HandLeft",
+      "partId": "arm-left",
+      "position": {
+        "x": 0,
+        "y": 78
+      }
+    },
+    {
+      "id": "socket-hand-right",
+      "name": "Right Hand",
+      "type": "HandRight",
+      "partId": "arm-right",
+      "position": {
+        "x": 0,
+        "y": 78
+      }
+    }
+  ]
+}

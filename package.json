@@ -1,0 +1,118 @@
+{
+  "name": "krx-cartoon-studio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local-first 2D character rig and animation editor",
+  "author": "KRX",
+  "main": "dist-electron/main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"vite\" \"npm:dev:electron\"",
+    "dev:electron": "wait-on tcp:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 tsc -p tsconfig.electron.json && electron .",
+    "clean:electron": "node -e \"require('node:fs').rmSync('dist-electron',{recursive:true,force:true})\"",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.electron.json",
+    "test": "vitest run --exclude \"_backup/**\"",
+    "build": "npm run typecheck && vite build && npm run clean:electron && tsc -p tsconfig.electron.json",
+    "preview": "vite preview",
+    "start": "electron .",
+    "pack": "npm run build && electron-builder --win --dir",
+    "portable": "npm run build && electron-builder --win portable",
+    "dist": "npm run build && electron-builder --win"
+  },
+  "dependencies": {
+    "ffmpeg-static": "5.2.0",
+    "pixi.js": "8.19.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "6.0.5",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "43.3.0",
+    "electron-builder": "26.0.12",
+    "png-to-ico": "2.1.8",
+    "typescript": "7.0.2",
+    "vite": "8.2.0",
+    "vitest": "4.1.10",
+    "wait-on": "^9.0.3"
+  },
+  "build": {
+    "appId": "com.krx.cartoonstudio",
+    "productName": "KRX Cartoon Studio",
+    "copyright": "Copyright © KRX",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/renderer/**/*",
+      "dist-electron/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "node_modules/ffmpeg-static/ffmpeg.exe",
+        "to": "ffmpeg/ffmpeg.exe"
+      },
+      {
+        "from": "Characters",
+        "to": "Characters",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "Assets",
+        "to": "Assets",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "Tools/piper",
+        "to": "Tools/piper",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "voice-engine",
+        "to": "voice-engine",
+        "filter": [
+          "**/*",
+          "!.venv/**",
+          "!logs/**",
+          "!__pycache__/**",
+          "!*.pyc"
+        ]
+      }
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "artifactName": "KRX-Cartoon-Studio-${version}-${arch}.${ext}",
+      "executableName": "KRX Cartoon Studio"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "KRX Cartoon Studio",
+      "uninstallDisplayName": "KRX Cartoon Studio",
+      "artifactName": "KRX-Cartoon-Studio-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "KRX-Cartoon-Studio-Portable.exe"
+    },
+    "asar": true
+  }
+}

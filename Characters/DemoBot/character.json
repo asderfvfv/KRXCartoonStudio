@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "id": "character-demobot",
+  "name": "DemoBot",
+  "assets": [
+    { "id": "asset-body", "name": "body", "path": "Assets/body.svg", "mediaType": "image/svg+xml", "width": 220, "height": 310 },
+    { "id": "asset-head", "name": "head", "path": "Assets/head.svg", "mediaType": "image/svg+xml", "width": 240, "height": 210 },
+    { "id": "asset-eye-left", "name": "eye-left", "path": "Assets/eye-left.svg", "mediaType": "image/svg+xml", "width": 32, "height": 42 },
+    { "id": "asset-eye-right", "name": "eye-right", "path": "Assets/eye-right.svg", "mediaType": "image/svg+xml", "width": 32, "height": 42 },
+    { "id": "asset-arm-left", "name": "arm-left", "path": "Assets/arm-left.svg", "mediaType": "image/svg+xml", "width": 72, "height": 210 },
+    { "id": "asset-arm-right", "name": "arm-right", "path": "Assets/arm-right.svg", "mediaType": "image/svg+xml", "width": 72, "height": 210 },
+    { "id": "asset-hand-left", "name": "hand-left", "path": "Assets/hand-left.svg", "mediaType": "image/svg+xml", "width": 68, "height": 72 },
+    { "id": "asset-hand-right", "name": "hand-right", "path": "Assets/hand-right.svg", "mediaType": "image/svg+xml", "width": 68, "height": 72 },
+    { "id": "asset-leg-left", "name": "leg-left", "path": "Assets/leg-left.svg", "mediaType": "image/svg+xml", "width": 82, "height": 225 },
+    { "id": "asset-leg-right", "name": "leg-right", "path": "Assets/leg-right.svg", "mediaType": "image/svg+xml", "width": 82, "height": 225 }
+  ],
+  "parts": [
+    { "id": "body", "name": "Body", "assetId": "asset-body", "parentId": null, "zIndex": 10, "transform": { "x": 110, "y": 150, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 110, "y": 150 }, "anchor": { "x": 0, "y": 0 }, "visible": true, "locked": false, "opacity": 1, "semanticRole": "Body" },
+    { "id": "head", "name": "Head", "assetId": "asset-head", "parentId": "body", "zIndex": 20, "transform": { "x": 110, "y": 0, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 120, "y": 105 }, "anchor": { "x": 0, "y": 0 }, "visible": true, "locked": false, "opacity": 1, "semanticRole": "Head" },
+    { "id": "eye-left", "name": "EyeLeft", "assetId": "asset-eye-left", "parentId": "head", "zIndex": 22, "transform": { "x": 88, "y": 82, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 16, "y": 21 }, "anchor": { "x": 0, "y": 0 }, "visible": true, "locked": false, "opacity": 1, "semanticRole": "EyeLeft" },
+    { "id": "eye-right", "name": "EyeRight", "assetId": "asset-eye-right", "parentId": "head", "zIndex": 22, "transform": { "x": 152, "y": 82, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 16, "y": 21 }, "anchor": { "x": 0, "y": 0 }, "visible": true, "locked": false, "opacity": 1, "semanticRole": "EyeRight" },
+    { "id": "arm-left", "name": "ArmLeft", "assetId": "asset-arm-left", "parentId": "body", "zIndex": 8, "transform": { "x": 20, "y": 65, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 36, "y": 28 }, "anchor": { "x": 0, "y": 0 }, "visible": true, "locked": false, "opacity": 1, "semanticRole": "ArmLeft" },
+    { "id": "hand-left", "name": "HandLeft", "assetId": "asset-hand-left", "parentId": "arm-left", "zIndex": 9, "transform": { "x": 36, "y": 190, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 34, "y": 15 }, "anchor": { "x": 0, "y": 0 }, "visible": true, "locked": false, "opacity": 1, "semanticRole": "HandLeft" },
+    { "id": "arm-right", "name": "ArmRight", "assetId": "asset-arm-right", "parentId": "body", "zIndex": 12, "transform": { "x": 200, "y": 65, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 36, "y": 28 }, "anchor": { "x": 0, "y": 0 }, "visible": true, "locked": false, "opacity": 1, "semanticRole": "ArmRight" },
+    { "id": "hand-right", "name": "HandRight", "assetId": "asset-hand-right", "parentId": "arm-right", "zIndex": 13, "transform": { "x": 36, "y": 190, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 34, "y": 15 }, "anchor": { "x": 0, "y": 0 }, "visible": true, "locked": false, "opacity": 1, "semanticRole": "HandRight" },
+    { "id": "leg-left", "name": "LegLeft", "assetId": "asset-leg-left", "parentId": "body", "zIndex": 7, "transform": { "x": 65, "y": 290, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 41, "y": 22 }, "anchor": { "x": 0, "y": 0 }, "visible": true, "locked": false, "opacity": 1, "semanticRole": "LegLeft" },
+    { "id": "leg-right", "name": "LegRight", "assetId": "asset-leg-right", "parentId": "body", "zIndex": 7, "transform": { "x": 155, "y": 290, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 41, "y": 22 }, "anchor": { "x": 0, "y": 0 }, "visible": true, "locked": false, "opacity": 1, "semanticRole": "LegRight" }
+  ],
+  "sockets": [
+    { "id": "socket-head-top", "name": "Head Top", "type": "HeadTop", "partId": "head", "position": { "x": 120, "y": 4 } },
+    { "id": "socket-hand-left", "name": "Left Hand", "type": "HandLeft", "partId": "hand-left", "position": { "x": 34, "y": 36 } },
+    { "id": "socket-hand-right", "name": "Right Hand", "type": "HandRight", "partId": "hand-right", "position": { "x": 34, "y": 36 } }
+  ],
+  "bindPose": {
+    "body": { "transform": { "x": 110, "y": 150, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 110, "y": 150 }, "anchor": { "x": 0, "y": 0 }, "opacity": 1 },
+    "head": { "transform": { "x": 110, "y": 0, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 120, "y": 105 }, "anchor": { "x": 0, "y": 0 }, "opacity": 1 },
+    "eye-left": { "transform": { "x": 88, "y": 82, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 16, "y": 21 }, "anchor": { "x": 0, "y": 0 }, "opacity": 1 },
+    "eye-right": { "transform": { "x": 152, "y": 82, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 16, "y": 21 }, "anchor": { "x": 0, "y": 0 }, "opacity": 1 },
+    "arm-left": { "transform": { "x": 20, "y": 65, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 36, "y": 28 }, "anchor": { "x": 0, "y": 0 }, "opacity": 1 },
+    "hand-left": { "transform": { "x": 36, "y": 190, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 34, "y": 15 }, "anchor": { "x": 0, "y": 0 }, "opacity": 1 },
+    "arm-right": { "transform": { "x": 200, "y": 65, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 36, "y": 28 }, "anchor": { "x": 0, "y": 0 }, "opacity": 1 },
+    "hand-right": { "transform": { "x": 36, "y": 190, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 34, "y": 15 }, "anchor": { "x": 0, "y": 0 }, "opacity": 1 },
+    "leg-left": { "transform": { "x": 65, "y": 290, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 41, "y": 22 }, "anchor": { "x": 0, "y": 0 }, "opacity": 1 },
+    "leg-right": { "transform": { "x": 155, "y": 290, "rotation": 0, "scaleX": 1, "scaleY": 1 }, "pivot": { "x": 41, "y": 22 }, "anchor": { "x": 0, "y": 0 }, "opacity": 1 }
+  }
+}

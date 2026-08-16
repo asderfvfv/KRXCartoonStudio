@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.cache/
+models/
+*.wav
+!fixtures/.gitkeep
+logs/
+setup-status.json
